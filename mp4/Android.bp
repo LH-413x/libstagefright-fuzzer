@@ -1,0 +1,34 @@
+cc_binary{
+    name: "mp4-fuzzer",
+    srcs: [
+        "mp4.cpp",
+    ],
+    include_dirs: [	
+	"frameworks/av/media/libstagefright/codecs/m4v_h263/dec/include",
+    ],
+    cflags: [
+        "-Wall",
+        "-fexceptions",
+        "-Werror",
+	"-DOSCL_IMPORT_REF=",
+    ],
+    shared_libs: [
+        "libbase",
+        "liblog",
+        "libutils",
+        "libbinder",
+    ],
+    static_libs: [
+	"libstagefright_m4vh263dec_asan_cov",
+	"libFuzzer",
+    ],
+    cppflags: [
+	"-fsanitize=fuzzer",
+	"-DOSCL_IMPORT_REF=",
+	"-g",
+    ],
+    sanitize: {
+	address: true,
+	coverage: true,
+    }, 
+}

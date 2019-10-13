@@ -1,0 +1,69 @@
+cc_binary{
+    name: "amrnb-fuzzer",
+    srcs: [
+        "amrnb.cpp",
+    ],
+    include_dirs: [	
+	"frameworks/av/media/libstagefright/codecs/amrnb/dec/src",
+	"frameworks/av/media/libstagefright/codecs/amrnb/common/include",
+    ],
+    cflags: [
+        "-Wall",
+        "-fexceptions",
+        "-Werror",
+    ],
+    shared_libs: [
+        "libbase",
+        "liblog",
+        "libutils",
+        "libbinder",
+    ],
+    static_libs: [
+	"libstagefright_amrnb_common_asan_cov",
+	"libstagefright_amrnbdec_asan_cov",
+	"libFuzzer",
+    ],
+    cppflags: [
+	"-fsanitize=fuzzer",
+	"-g",
+    ],
+    sanitize: {
+	address: true,
+	coverage: true,
+    }, 
+}
+
+cc_binary{
+    name: "amrwb-fuzzer",
+    srcs: [
+        "amrwb.cpp",
+    ],
+    include_dirs: [	
+	"frameworks/av/media/libstagefright/codecs/amrwb/src/pvamrwbdecoder.h",
+    ],
+    cflags: [
+        "-Wall",
+        "-fexceptions",
+        "-Werror",
+    ],
+    shared_libs: [
+        "libbase",
+        "liblog",
+        "libutils",
+        "libbinder",
+    ],
+    static_libs: [
+	"libstagefright_amrwbdec_asan_cov",
+	"libFuzzer",
+    ],
+    cppflags: [
+	"-fsanitize=fuzzer",
+	"-g",
+    ],
+    sanitize: {
+	address: true,
+	coverage: true,
+    }, 
+}
+
+

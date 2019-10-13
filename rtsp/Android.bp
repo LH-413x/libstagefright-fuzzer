@@ -1,0 +1,47 @@
+cc_binary {
+    name: "rtp_test_asan_cov",
+
+    srcs: ["rtp_test.cpp"],
+
+    shared_libs: [
+        "libstagefright",
+        "liblog",
+        "libutils",
+        "libbinder",
+        "libstagefright_foundation",
+        "libmedia",
+    ],
+
+    static_libs: [
+	"libstagefright_rtsp_asan_cov",
+	"libFuzzer",
+    ],
+
+    include_dirs: [
+	"frameworks/av/media/libstagefright/rtsp",
+        "frameworks/av/media/libstagefright",
+        "frameworks/av/cmds/stagefright",
+        "frameworks/native/include/media/openmax",
+    ],
+
+    cflags: [
+        "-Wno-multichar",
+        "-Werror",
+        "-Wall",
+    ],
+
+    cppflags: [
+        "-fsanitize=fuzzer",
+        "-g",
+    ],
+
+
+    sanitize: {
+        misc_undefined: [
+            "signed-integer-overflow",
+        ],
+        cfi: true,
+	address: true,
+	coverage: true,
+    },
+}

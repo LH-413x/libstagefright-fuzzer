@@ -1,0 +1,74 @@
+cc_binary{
+    name: "flac-meta-fuzzer",
+    srcs: [
+        "main.cpp",
+    ],
+    include_dirs: [	
+	"frameworks/av/media/libstagefright/flac/dec",
+	"frameworks/av/media/libstagefright/foundation/include/",
+    ],
+    cflags: [
+        "-Wall",
+        "-fexceptions",
+	"-fsanitize-coverage=pc-table,trace-pc,indirect-calls,inline-8bit-counters",
+        "-Werror",
+    ],
+    shared_libs: [
+        "libbase",
+        "liblog",
+        "libutils",
+        "libbinder",
+    ],
+    static_libs: [
+	"libstagefright_flacdec_asan_cov",
+	"libFuzzer",
+    ],
+    cppflags: [
+	"-fsanitize=fuzzer",
+	"-fsanitize-coverage=pc-table,trace-pc,indirect-calls,inline-8bit-counters",
+	"-g",
+    ],
+    sanitize: {
+	address: true,
+	coverage: true,
+    }, 
+    compile_multilib: "32",
+}
+
+cc_binary{
+    name: "flac-frame-fuzzer",
+    srcs: [
+        "frame.cpp",
+    ],
+
+    include_dirs: [	
+	"frameworks/av/media/libstagefright/flac/dec",
+	"frameworks/av/media/libstagefright/foundation/include/",
+    ],
+    cflags: [
+        "-Wall",
+        "-fexceptions",
+	"-fsanitize-coverage=pc-table,trace-pc,indirect-calls,inline-8bit-counters",
+        "-Werror",
+    ],
+    shared_libs: [
+        "libbase",
+        "liblog",
+        "libutils",
+        "libbinder",
+    ],
+    static_libs: [
+	"libstagefright_flacdec_asan_cov",
+	"libFuzzer",
+    ],
+    cppflags: [
+	"-fsanitize=fuzzer",
+	"-fsanitize-coverage=pc-table,trace-pc,indirect-calls,inline-8bit-counters",
+	"-g",
+    ],
+    sanitize: {
+	address: true,
+	coverage: true,
+    }, 
+    compile_multilib: "32",
+}

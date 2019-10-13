@@ -1,0 +1,33 @@
+cc_binary{
+    name: "gsm-fuzzer",
+    srcs: [
+        "main.cpp",
+    ],
+    include_dirs: [	
+	"external/libgsm/inc/",
+    ],
+    cflags: [
+        "-Wall",
+        "-fexceptions",
+        "-Werror",
+	"-fsanitize=fuzzer",
+    ],
+    shared_libs: [
+        "libbase",
+        "liblog",
+        "libutils",
+        "libbinder",
+    ],
+    static_libs: [
+	"libgsm-asan",
+	"libFuzzer",
+    ],
+    cppflags: [
+	"-fsanitize=fuzzer",
+    ],
+    sanitize: {
+	address: true,
+	coverage: true,
+    }, 
+    compile_multilib: "32",
+}
